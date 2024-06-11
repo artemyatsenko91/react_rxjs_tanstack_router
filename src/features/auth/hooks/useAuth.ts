@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { container } from "tsyringe";
-import AuthService from "../../../core/services/authService";
+import AuthService from "../authService";
 
 export const useAuth = () => {
     const [authState, setAuthState] = useState<{

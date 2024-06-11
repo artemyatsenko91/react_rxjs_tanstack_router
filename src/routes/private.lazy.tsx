@@ -1,21 +1,32 @@
-import "reflect-metadata";
-import React from "react";
-import {
-    createLazyFileRoute,
-    useLocation,
-    Navigate,
-} from "@tanstack/react-router";
-import { useAuth } from "../features/auth/hooks/useAuth";
+import React, { useContext, useEffect, useState } from "react";
+import { createLazyFileRoute, Navigate } from "@tanstack/react-router";
+import AuthContext from "../features/auth/authContext";
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = () => {
-    const { authState } = useAuth();
-    const location = useLocation();
+    const authService = useContext(AuthContext);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    if (!authState.isAuthenticated) {
-        return <Navigate to="/form" state={{ from: location }} replace />;
+    useEffect(() => {
+        const subscription = authService
+            .getAuthState()
+            .subscribe((authState) => {
+                setIsAuthenticated(authState.isAuthenticated);
+                setLoading(false);
+            });
+
+        return () => subscription.unsubscribe();
+    }, [authService]);
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
-    return <>PrivateRout</>;
+    if (!isAuthenticated) {
+        return <Navigate to="/form" replace />;
+    }
+
+    return <>Private route</>;
 };
 
 export default PrivateRoute;
