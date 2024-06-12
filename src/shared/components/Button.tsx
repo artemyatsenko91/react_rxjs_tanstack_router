@@ -1,17 +1,14 @@
 import "reflect-metadata";
 import React from "react";
-import { useAuth } from "../../features/auth/hooks/useAuth";
 
 const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({
     children,
     ...props
 }) => {
-    const { logout } = useAuth();
     return (
         <button
             {...props}
-            className="px-4 py-2 bg-blue-500 text-white rounded"
-            onClick={() => logout()}
+            className="box-border w-full text-white shadow-blackA4 hover:bg-blue-800 inline-flex h-[35px] items-center justify-center rounded-[4px] bg-blue-500 px-[15px] font-medium leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]"
         >
             {children}
         </button>

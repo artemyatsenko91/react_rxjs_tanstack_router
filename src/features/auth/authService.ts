@@ -2,7 +2,7 @@ import { injectable, inject } from "tsyringe";
 import { BehaviorSubject } from "rxjs";
 import SessionService from "../../core/services/sessionService";
 
-interface AuthState {
+export interface AuthState {
     isAuthenticated: boolean;
     user: string | null;
 }
@@ -17,14 +17,14 @@ class AuthService {
     constructor(
         @inject(SessionService) private sessionService: SessionService
     ) {
-        const session = this.sessionService.getSession();
-        if (session.user) {
-            this.authState$.next({ isAuthenticated: true, user: session.user });
+        const user = this.sessionService.getSession();
+        if (user) {
+            this.authState$.next({ isAuthenticated: true, user: user });
         }
     }
 
     login(user: string) {
-        this.sessionService.setSession({ user });
+        this.sessionService.setSession(user);
         this.authState$.next({ isAuthenticated: true, user });
     }
 

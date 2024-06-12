@@ -1,35 +1,26 @@
 import { injectable } from "tsyringe";
 
-interface SessionData {
-    user: string | null;
-}
-
-const SESSION_KEY = "sessionData";
-
 @injectable()
 class SessionService {
-    private sessionData: SessionData;
+    private readonly key = "tanstack.auth.user";
 
-    constructor() {
-        const savedSessionData = localStorage.getItem(SESSION_KEY);
-        this.sessionData = savedSessionData
-            ? JSON.parse(savedSessionData)
-            : { user: null };
+    setSession(user: string) {
+        if (user) {
+            localStorage.setItem(this.key, user);
+        } else {
+            localStorage.removeItem(this.key);
+        }
     }
 
-    setSession(data: SessionData) {
-        this.sessionData = data;
-        localStorage.setItem(SESSION_KEY, JSON.stringify(data));
-    }
-
-    getSession(): SessionData {
-        return this.sessionData;
+    getSession(): string | null {
+        return localStorage.getItem(this.key);
     }
 
     clearSession() {
-        this.sessionData = { user: null };
-        localStorage.removeItem(SESSION_KEY);
+        localStorage.removeItem(this.key);
     }
 }
 
 export default SessionService;
+
+export const useSessionService = new SessionService();
