@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { container } from "tsyringe";
 import SessionService from "../services/sessionService";
 import AuthService from "../../features/auth/authService";

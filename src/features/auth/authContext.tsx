@@ -25,13 +25,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         user: sessionService.getSession(),
     });
 
-    const login = useCallback(async (username: string) => {
-        authService.login(username);
-        setUser({
-            isAuthenticated: true,
-            user: username,
-        });
-    }, []);
+    const login = useCallback(
+        async (username: string) => {
+            authService.login(username);
+            setUser({
+                isAuthenticated: true,
+                user: username,
+            });
+        },
+        [authService],
+    );
 
     const logout = useCallback(async () => {
         authService.logout();
@@ -39,7 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             isAuthenticated: false,
             user: null,
         });
-    }, []);
+    }, [authService]);
 
     useEffect(() => {
         const authStateSubscription = authService
@@ -47,7 +50,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .subscribe((state) => setUser(state));
 
         return () => authStateSubscription.unsubscribe();
-    }, []);
+    }, [authService]);
 
     return (
         <AuthContext.Provider value={{ ...user, login, logout }}>

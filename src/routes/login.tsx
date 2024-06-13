@@ -4,25 +4,12 @@ import {
     useNavigate,
     useRouter,
 } from "@tanstack/react-router";
-import "reflect-metadata";
 import { z } from "zod";
 
 import { useAuth } from "../features/auth/authContext";
 import LoginForm from "../features/auth/components/LoginForm";
 
-export const Route = createFileRoute("/login")({
-    validateSearch: z.object({
-        redirect: z.string().optional().catch(""),
-    }),
-    beforeLoad: ({ context, search }) => {
-        if (context.auth.isAuthenticated) {
-            throw redirect({ to: search.redirect });
-        }
-    },
-    component: Form,
-});
-
-function Form() {
+const LoginPage = () => {
     const auth = useAuth();
     const router = useRouter();
     const navigate = useNavigate();
@@ -30,12 +17,11 @@ function Form() {
     const search = Route.useSearch();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        console.log("first");
         try {
             e.preventDefault();
             const data = new FormData(e.currentTarget);
             const fieldValue = data.get("username");
-            console.log(fieldValue);
+
             if (!fieldValue) return;
             const username = fieldValue.toString();
 
@@ -43,6 +29,7 @@ function Form() {
             await router.invalidate();
             await navigate({ to: search.redirect });
         } catch (error) {
+            // eslint-disable-next-line no-console
             console.error("Error logging in: ", error);
         }
     };
@@ -53,4 +40,16 @@ function Form() {
             <LoginForm handleSubmit={handleSubmit} />
         </div>
     );
-}
+};
+
+export const Route = createFileRoute("/login")({
+    validateSearch: z.object({
+        redirect: z.string().optional().catch(""),
+    }),
+    beforeLoad: ({ context, search }) => {
+        if (context.auth.isAuthenticated) {
+            throw redirect({ to: search.redirect });
+        }
+    },
+    component: LoginPage,
+});

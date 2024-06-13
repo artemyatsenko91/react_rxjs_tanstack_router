@@ -1,0 +1,3 @@
+.login-form {
+    @apply box-border w-full bg-slate-300 shadow-lg inline-flex h-[35px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none text-black shadow-[0_0_0_1px] outline-none hover:shadow-md focus:shadow-lg selection:text-white selection:bg-red-700;
+}

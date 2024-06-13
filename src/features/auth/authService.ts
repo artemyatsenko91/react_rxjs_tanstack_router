@@ -15,7 +15,7 @@ class AuthService {
     });
 
     constructor(
-        @inject(SessionService) private sessionService: SessionService
+        @inject(SessionService) private sessionService: SessionService,
     ) {
         const user = this.sessionService.getSession();
         if (user) {

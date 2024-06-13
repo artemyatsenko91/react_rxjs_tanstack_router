@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Home = () => {
+const Home = () => {
     return (
         <div>
             <h1>hello world</h1>
