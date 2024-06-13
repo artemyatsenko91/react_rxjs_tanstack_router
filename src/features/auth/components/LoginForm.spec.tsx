@@ -38,4 +38,13 @@ describe("Button", () => {
 
         expect(errorText).toBeInTheDocument();
     });
+
+    it("should invoke the handleSubmit callback", () => {
+        render(<LoginForm handleSubmit={handleSubmit}></LoginForm>);
+
+        const button = screen.getByTestId("sign_in-button");
+        fireEvent.submit(button);
+
+        expect(handleSubmit).toHaveBeenCalledTimes(1);
+    });
 });
