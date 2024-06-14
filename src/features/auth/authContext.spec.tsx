@@ -23,7 +23,7 @@ const ConsumerComponent = () => {
 };
 
 describe("AuthContext", () => {
-    it.only("ConsumerComponent shows default text", () => {
+    it("ConsumerComponent shows default text", () => {
         render(
             <AuthProvider>
                 <ConsumerComponent />
@@ -35,7 +35,7 @@ describe("AuthContext", () => {
         expect(noUserAuthText).toHaveTextContent("No authenticated user");
     });
 
-    it.only("ConsumerComponent should render user name after login", () => {
+    it("ConsumerComponent should render user name after login", () => {
         render(
             <AuthProvider>
                 <ConsumerComponent />
@@ -50,7 +50,7 @@ describe("AuthContext", () => {
         expect(userAuthText).toHaveTextContent(user);
     });
 
-    it.only("ConsumerComponent should render default text after logout", () => {
+    it("ConsumerComponent should render default text after logout", () => {
         render(
             <AuthProvider>
                 <ConsumerComponent />

@@ -1,7 +1,8 @@
 import React from "react";
 import * as Form from "@radix-ui/react-form";
-import Button from "../../../shared/components/Button";
-import style from "./loginForm.module.css";
+
+import Button from "../../../shared/components/Button/Button";
+import Input from "../../../shared/components/Input/Input";
 
 interface LoginForm {
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
@@ -23,8 +24,7 @@ const LoginForm: React.FC<LoginForm> = ({ handleSubmit }) => {
                     </Form.Message>
                 </div>
                 <Form.Control asChild>
-                    <input
-                        className={style["login-form"]}
+                    <Input
                         type="name"
                         name="username"
                         data-testid="username-input"

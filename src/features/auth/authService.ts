@@ -1,5 +1,6 @@
-import { injectable, inject } from "tsyringe";
 import { BehaviorSubject } from "rxjs";
+import { inject, injectable } from "tsyringe";
+
 import SessionService from "../../core/services/sessionService";
 
 export interface AuthState {

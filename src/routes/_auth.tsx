@@ -4,10 +4,11 @@ import {
     redirect,
     useRouter,
 } from "@tanstack/react-router";
-import { useAuth } from "../features/auth/authContext";
-import Button from "../shared/components/Button";
 
-const AuthLayout = () => {
+import { useAuth } from "../features/auth/authContext";
+import Button from "../shared/components/Button/Button";
+
+export const AuthLayout = () => {
     const router = useRouter();
     const navigate = Route.useNavigate();
     const auth = useAuth();
@@ -26,7 +27,9 @@ const AuthLayout = () => {
             <h1>Authenticated Route</h1>
             <p>This route's content is only visible to authenticated users.</p>
             <div className="flex max-w-[200px] mb-4">
-                <Button onClick={handleLogout}>Sign Out</Button>
+                <Button data-testid="sign_out-button" onClick={handleLogout}>
+                    Sign Out
+                </Button>
             </div>
 
             <hr />

@@ -9,7 +9,7 @@ import { z } from "zod";
 import { useAuth } from "../features/auth/authContext";
 import LoginForm from "../features/auth/components/LoginForm";
 
-const LoginPage = () => {
+export const LoginPage = () => {
     const auth = useAuth();
     const router = useRouter();
     const navigate = useNavigate();

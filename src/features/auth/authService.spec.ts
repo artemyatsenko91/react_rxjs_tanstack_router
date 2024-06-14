@@ -1,8 +1,9 @@
 import "reflect-metadata";
-import { describe, it, expect, beforeEach } from "vitest";
-import { container } from "tsyringe";
-import AuthService, { AuthState } from "./authService";
 import { firstValueFrom } from "rxjs";
+import { container } from "tsyringe";
+import { beforeEach, describe, expect, it } from "vitest";
+
+import AuthService, { AuthState } from "./authService";
 
 describe("AuthService", () => {
     let authService: AuthService;

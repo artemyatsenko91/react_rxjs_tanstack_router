@@ -5,8 +5,9 @@ import {
     useEffect,
     useState,
 } from "react";
-import SessionService from "../../core/services/sessionService";
 import { container } from "tsyringe";
+
+import SessionService from "../../core/services/sessionService";
 import AuthService, { AuthState } from "./authService";
 
 export interface AuthContext extends AuthState {
@@ -25,16 +26,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         user: sessionService.getSession(),
     });
 
-    const login = useCallback(
-        async (username: string) => {
-            authService.login(username);
-            setUser({
-                isAuthenticated: true,
-                user: username,
-            });
-        },
-        [authService],
-    );
+    const login = useCallback(async (username: string) => {
+        authService.login(username);
+        setUser({
+            isAuthenticated: true,
+            user: username,
+        });
+    }, []);
 
     const logout = useCallback(async () => {
         authService.logout();
@@ -42,7 +40,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             isAuthenticated: false,
             user: null,
         });
-    }, [authService]);
+    }, []);
 
     useEffect(() => {
         const authStateSubscription = authService
@@ -50,7 +48,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .subscribe((state) => setUser(state));
 
         return () => authStateSubscription.unsubscribe();
-    }, [authService]);
+    }, []);
 
     return (
         <AuthContext.Provider value={{ ...user, login, logout }}>

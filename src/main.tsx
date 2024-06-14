@@ -7,12 +7,6 @@ import "./index.css";
 import { routeTree } from "./routeTree.gen";
 import { AuthProvider, useAuth } from "./features/auth/authContext";
 
-declare module "@tanstack/react-router" {
-    interface Register {
-        router: typeof router;
-    }
-}
-
 const router = createRouter({
     routeTree,
     context: {

@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { container } from "tsyringe";
 import AuthService from "../authService";
